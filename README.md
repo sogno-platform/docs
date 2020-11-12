@@ -22,6 +22,8 @@ Here goes the description of the architecture independent of specific function /
 ## Implementation
 
 ### Services
+
+- [packaging catalogue](https://git.rwth-aachen.de/acs/public/catalogue)
 - [state estimation](https://git.rwth-aachen.de/acs/public/automation/pyvolt)
 - [load forecasting](https://git.rwth-aachen.de/acs/public/automation/plf)
 - [coordinated voltage control](https://git.rwth-aachen.de/acs/public/automation/covee)
