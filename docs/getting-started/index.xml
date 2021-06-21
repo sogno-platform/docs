@@ -1,0 +1,42 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SOGNO – Getting Started</title><link>https://sogno-platform.github.io/docs/getting-started/</link><description>Recent content in Getting Started on SOGNO</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sogno-platform.github.io/docs/getting-started/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Single Node Setup</title><link>https://sogno-platform.github.io/docs/getting-started/single-node/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogno-platform.github.io/docs/getting-started/single-node/</guid><description>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;p>The single node setup of SOGNO has been tested on the following operating systems:&lt;/p>
+&lt;ul>
+&lt;li>Ubuntu Server 20.04 LTS&lt;/li>
+&lt;li>Ubuntu Desktop 20.04 LTS&lt;/li>
+&lt;/ul>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;p>In order to run a single node SOGNO setup, we need to install kubernetes and the &lt;a href="https://helm.sh/">helm&lt;/a> package manager. &lt;a href="(https://k3s.io/)">k3s&lt;/a> is a powerful lightweight kubernetes installation that suites well for single node or edge deployments. Helm is a package manager for kubernetes. We aims at providing helm charts for simple deployment of the SOGNO platform and all our services to make the installation as easy as possible.&lt;/p>
+&lt;h3 id="k3s">K3s&lt;/h3>
+&lt;p>First, we need to install a &lt;a href="https://k3s.io/">k3s&lt;/a> single node kubernetes cluster. Please refer to the official website for alternative installation methods. The simplest way is to use the official install script. Run the following command to download and execute the official installation script.&lt;/p>
+&lt;pre>&lt;code>curl -sfL https://get.k3s.io | sh -
+&lt;/code>&lt;/pre>&lt;p>Afterwards, we can verify our installation was successful by running&lt;/p>
+&lt;pre>&lt;code>sudo k3s kubectl get node
+&lt;/code>&lt;/pre>&lt;p>If the installation was successful, this should return a list of kubernetes nodes containing solely your host as a master node.&lt;/p>
+&lt;h3 id="helm">Helm&lt;/h3>
+&lt;p>&lt;a href="https://helm.sh/">Helm&lt;/a> is a package manager for kubernetes and provides detailed installation instructions on the website. Again, the fastest way is to use the provided install script:&lt;/p>
+&lt;pre>&lt;code>curl -sfL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+&lt;/code>&lt;/pre>&lt;p>Now, we can varify the helm installation.&lt;/p>
+&lt;pre>&lt;code>helm --kubeconfig /etc/rancher/k3s/k3s.yaml list
+&lt;/code>&lt;/pre>&lt;p>&lt;em>Eventually, you might need to change the ownership of that file:&lt;/em>&lt;/p>
+&lt;pre>&lt;code>sudo chown -R $USER /etc/rancher/k3s/
+&lt;/code>&lt;/pre>&lt;p>Finally, we can simplify the usage by setting the environment variable &lt;code>KUBECONFIG&lt;/code> to our &lt;code>k3s.yaml&lt;/code> file. By default (following our tutorial), it should be located in &lt;code>/etc/rancher/k3s/&lt;/code>.&lt;/p>
+&lt;pre>&lt;code>export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+&lt;/code>&lt;/pre>&lt;p>For a more convenient and persistent usage, you can also append it to your &lt;code>.bashrc&lt;/code>&lt;/p>
+&lt;pre>&lt;code>echo &amp;quot;export KUBECONFIG=/etc/rancher/k3s/k3s.yaml&amp;quot; &amp;gt;&amp;gt; ~/.bashrc
+&lt;/code>&lt;/pre>&lt;h3 id="databus">Databus&lt;/h3>
+&lt;p>One of the most central elements in the SOGNO architecture is the central databus. The current release uses MQTT over the &lt;a href="https://www.rabbitmq.com/">RabbitMQ&lt;/a> broker. We can install rabbitmq via helm:&lt;/p>
+&lt;pre>&lt;code>helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install -n sogno-demo --create-namespace -f rabbitmq_values.yaml rabbitmq bitnami/rabbitmq
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>rabbitmq_values.yaml&lt;/code> file contains SOGNO specific overwrites of the default rabbitMQ values. For our minimal single node setup, we can use the following values file:&lt;/p>
+&lt;pre>&lt;code>extraPlugins: rabbitmq_mqtt
+service:
+extraPorts:
+- name: mqtt
+port: 1883
+targetPort: 1883
+nodePort: LoadBalancer
+auth:
+username: admin
+password: admin
+&lt;/code>&lt;/pre></description></item></channel></rss>

@@ -1,0 +1,16 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>SOGNO – Examples</title><link>https://sogno-platform.github.io/docs/examples/</link><description>Recent content in Examples on SOGNO</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://sogno-platform.github.io/docs/examples/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: State-Estimation</title><link>https://sogno-platform.github.io/docs/examples/state-estimation/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sogno-platform.github.io/docs/examples/state-estimation/</guid><description>
+&lt;p>This example demonstrates how to run a state-estimation algorithm that receives measurements from a real-time simulator.
+The same setup could be used for real measurement units, which replace the real-time simulator.
+The following image shows the software components involved in this example and how they are interconnected.&lt;/p>
+&lt;p>&lt;img src="state-estimation.svg" alt="state-estimation-setup">&lt;/p>
+&lt;p>The services are implemented as follows:&lt;/p>
+&lt;ul>
+&lt;li>Message Broker: RabbitMQ&lt;/li>
+&lt;li>State-estimation: pyVolt&lt;/li>
+&lt;li>Real-time simulation: DPsim&lt;/li>
+&lt;li>Database adapter: telegraf&lt;/li>
+&lt;li>Time-series database: influx&lt;/li>
+&lt;li>Visualization: Grafana&lt;/li>
+&lt;li>CIM grid viewer: Pintura&lt;/li>
+&lt;/ul>
+&lt;p>Until a comprehensive guide is available here, please refer to the &lt;a href="https://github.com/sogno-platform/example-deployments/tree/main/pyvolt-dpsim-demo">notes in the example-deployments repo&lt;/a>.&lt;/p></description></item></channel></rss>
